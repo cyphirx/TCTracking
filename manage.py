@@ -1,0 +1,1 @@
+# Base manage.py file
