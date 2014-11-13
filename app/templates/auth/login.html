@@ -14,9 +14,15 @@
         <li{% if show_login == 3 %} class="active"{% endif %}><a href="{{ url_for('.local_login') }}">Local account</a></li>
 
     </ul>
-    {{ wtf.quick_form(form) }}
     <br>
+    {% if show_login == 1 %}
+    {{ wtf.quick_form(form) }}
+    {% endif %}
+    {% if show_login == 2 %}
+        NYI
+    {% endif %}
     {%  if show_login == 3 %}
+    {{ wtf.quick_form(form) }}
     <p>Forgot your password? <a href="{{ url_for('auth.password_reset_request') }}">Click here to reset it</a>.</p>
     <p>New user? <a href="{{ url_for('auth.register') }}">Click here to register</a>.</p>
     {% endif %}

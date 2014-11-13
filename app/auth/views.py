@@ -6,7 +6,7 @@ from .. import db
 from ..models import User
 from ..email import send_email
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm,\
-    PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
+    PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm, TestLoginForm
 
 
 @auth.before_app_request
@@ -29,8 +29,13 @@ def unconfirmed():
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    testlogin = TestLoginForm()
     show_login = int(request.cookies.get('show_login',1))
-    print(show_login)
+    if show_login == 3:
+        form = LoginForm()
+    else:
+        form = TestLoginForm()
+
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is not None and user.verify_password(form.password.data):
